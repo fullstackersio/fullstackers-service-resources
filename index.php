@@ -31,7 +31,6 @@ $app->get('/tasks', function ($request, $response, $args)
       if(isset($data))
       {
           header('Content-Type: application/json');
-          // echo json_encode($data);
 
           $payload = $data;
 
@@ -45,15 +44,9 @@ $app->get('/tasks', function ($request, $response, $args)
 
       }
 
-    // ORIGINAL :
-    // return $response->write("All of the tasks, boss!");
 });
 
-// 2. GET /tasks/1
-$app->get('/tasks/{name}', function ($request, $response, $args)
-{
-    return $response->write("TASK ID: " . $args['name']);
-});
+
 
 // 4. POST /tasks
 $app->post('/tasks', function (Request $request, Response $response)
@@ -63,6 +56,7 @@ $app->post('/tasks', function (Request $request, Response $response)
     $desc = $response['description'];
     return "TITLE : " . $title . " .... DESC : " . $desc;
 });
+
 
 
 // 5. PUT /tasks/1
@@ -75,6 +69,7 @@ $app->put('/tasks/{name}', function (Request $request, Response $response)
     $status = $response['status_type'];
     return "ID : " . $name . " .... TITLE : " . $title . " .... DESC : " . $desc . " .... STATUS : " . $status;
 });
+
 
 
 // 6. DELETE /tasks/1
