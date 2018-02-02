@@ -11,5 +11,4 @@ composer start
 composer test
 
 ## External Docs
-Phinx
-[link](http://docs.phinx.org/en/latest/index.html)
+[Phinx](http://docs.phinx.org/en/latest/index.html)
