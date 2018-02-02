@@ -1,4 +1,8 @@
-# Resources Service
+## Resources Service
+
+# DB Migration Commands
+composer db-migrate
+composer db-rollback
 
 # Start up local server
-php -S localhost:8080 -t public public/index.php
+composer start

@@ -1,5 +1,6 @@
 {
     "require": {
+        "php": ">=5.5.0",
         "slim/slim": "^3.0",
         "vlucas/phpdotenv": "^2.4",
         "monolog/monolog": "^1.23",
@@ -10,5 +11,14 @@
         "psr-4": {
            "Fullstackersio\\" : "src/"
         }
+    },
+    "config": {
+        "process-timeout": 0
+    },
+    "scripts": {
+        "start": "php -S localhost:8080 -t public public/index.php",
+        "test": "phpunit",
+        "db-migrate": "phinx migrate -c config-phinx.php",
+        "db-rollback": "phinx rollback -c config-phinx.php"
     }
 }

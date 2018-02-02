@@ -14,3 +14,10 @@ $container['logger'] = function($c) {
     $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
     return $logger;
 };
+
+// Controllers
+$container[Fullstackersio\Controllers\ResourceController::class] = function($c) {
+    $table = $c->get('db')->table('resources');
+    $logger = $c->get('logger');
+    return new \Fullstackersio\Controllers\ResourceController($table, $logger);
+};
