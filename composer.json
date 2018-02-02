@@ -20,5 +20,8 @@
         "test": "phpunit",
         "db-migrate": "phinx migrate -c config-phinx.php",
         "db-rollback": "phinx rollback -c config-phinx.php"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.0"
     }
 }

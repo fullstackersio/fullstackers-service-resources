@@ -6,3 +6,6 @@ composer db-rollback
 
 ## Start up local server
 composer start
+
+## Run tests
+composer test
