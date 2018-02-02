@@ -18,13 +18,14 @@ $app->get('/tasks', function ($request, $response, $args)
   $db = pg_connect("host=localhost dbname=fullstacker user=postgres")
                 or die('Could not connect: ' . pg_last_error());
 
-      $query = "SELECT task_id AS id, title, description, complete_ind FROM tasks WHERE active_ind = 1;";
+      $query = "SELECT task_id AS id, title, description, complete_ind AS complete FROM tasks WHERE task_id = 2 AND active_ind = 1;";
 
       $result = pg_query($db, $query);
 
       while($row = pg_fetch_assoc($result))
       {
-          $row['complete_ind'] = ($row['complete_ind'] == 't') ? true : false;
+          $row['complete'] = ($row['complete'] == 't') ? true : false;
+          $row['history'] = [];
           $data[] = $row;
       }
 
@@ -33,7 +34,10 @@ $app->get('/tasks', function ($request, $response, $args)
           header('Content-Type: application/json');
           // echo json_encode($data);
           // $payload = json_encode($data);
-          $payload = $data;
+     
+
+          $payload = new stdClass();
+          $payload->tasks = $data;
 
           $response = new stdClass();
           $response->success = TRUE;
@@ -50,7 +54,6 @@ $app->get('/tasks', function ($request, $response, $args)
 // 2. POST /tasks
 $app->post('/tasks', function (Request $request, Response $response)
 {
-
   $response = $request->getParsedBody();
   $title = $response['title'];
   $desc = $response['description'];
@@ -68,13 +71,13 @@ $app->post('/tasks', function (Request $request, Response $response)
       $id = $result[0];
 
       /* RETURN Result to Client */
-      $query = "SELECT task_id AS id, title, description, complete_ind FROM tasks WHERE task_id = " . $id . ";";
+      $query = "SELECT task_id AS id, title, description, complete_ind AS complete FROM tasks WHERE task_id = " . $id . ";";
 
       $result = pg_query($db, $query);
 
       while($row = pg_fetch_assoc($result))
       {
-          $row['complete_ind'] = ($row['complete_ind'] == 't') ? true : false;
+          $row['complete'] = ($row['complete'] == 't') ? true : false;
           $data[] = $row;
       }
 
@@ -97,13 +100,14 @@ $app->post('/tasks', function (Request $request, Response $response)
 
 
 
-// 3. PUT /tasks/1
-$app->put('/tasks/{name}', function (Request $request, Response $response)
+// 3. PATCH /tasks/1
+$app->patch('/tasks/{name}', function (Request $request, Response $response)
 {
-
+  echo 'inside put'; exit;
   $name = $request->getAttribute('name');
 
   $response = $request->getParsedBody();
+
   $title = $response['title'];
   $desc = $response['description'];
   $complete_ind = $response['status_type'];
@@ -120,13 +124,13 @@ $app->put('/tasks/{name}', function (Request $request, Response $response)
       $result = pg_fetch_row($stmt);
 
       /* RETURN Result to Client */
-      $query = "SELECT task_id AS id, title, description, complete_ind FROM tasks WHERE task_id = " . $name . ";";
+      $query = "SELECT task_id AS id, title, description, complete_ind AS complete FROM tasks WHERE task_id = " . $name . ";";
 
       $result = pg_query($db, $query);
 
       while($row = pg_fetch_assoc($result))
       {
-          $row['complete_ind'] = ($row['complete_ind'] == 't') ? true : false;
+          $row['complete'] = ($row['complete'] == 't') ? true : false;
           $data[] = $row;
       }
 
@@ -167,13 +171,13 @@ $app->delete('/tasks/{name}', function (Request $request, Response $response)
       $result = pg_fetch_row($stmt);
 
       /* RETURN Result to Client */
-      $query = "SELECT task_id AS id, title, description, complete_ind FROM tasks WHERE task_id = " . $name . ";";
+      $query = "SELECT task_id AS id, title, description, complete_ind AS complete FROM tasks WHERE task_id = " . $name . ";";
 
       $result = pg_query($db, $query);
 
       while($row = pg_fetch_assoc($result))
       {
-          $row['complete_ind'] = ($row['complete_ind'] == 't') ? true : false;
+          $row['complete'] = ($row['complete'] == 't') ? true : false;
           $data[] = $row;
       }
 
