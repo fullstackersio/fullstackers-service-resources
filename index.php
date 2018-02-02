@@ -7,6 +7,15 @@ require 'vendor/autoload.php';
 // Create a new Slim application
 $app = new \Slim\App;
 
+$app->get('/test_pdo', function($request, $response, $args) {
+    $user = 'root';
+    $pass = '';
+    $db = new PDO('mysql:host=localhost;dbname=fullstackers', $user, $pass);
+    foreach($db->query('SELECT * FROM test') as $row) {
+        echo $row['name'] . '<br>';
+    }
+});
+
 // 1. GET /tasks
 $app->get('/tasks', function ($request, $response, $args)
 {
