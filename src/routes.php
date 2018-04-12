@@ -19,3 +19,7 @@ $app->get('/test_pdo', function($request, $response, $args) {
         echo $row['name'] . '<br>';
     }
 });
+
+// echo Fullstackersio\Controller\ResourceController::class; exit;
+
+$app->get('/resources', Fullstackersio\Controller\ResourceController::class . ':list');

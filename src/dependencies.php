@@ -15,9 +15,20 @@ $container['logger'] = function($c) {
     return $logger;
 };
 
+// Service factory for the ORM
+$container['db'] = function ($container) {
+    $capsule = new \Illuminate\Database\Capsule\Manager;
+    $capsule->addConnection($container['settings']['db']);
+
+    $capsule->setAsGlobal();
+    $capsule->bootEloquent();
+
+    return $capsule;
+};
+
 // Controllers
-$container[Fullstackersio\Controllers\ResourceController::class] = function($c) {
-    $table = $c->get('db')->table('resources');
+$container[Fullstackersio\Controller\ResourceController::class] = function($c) {  
+    $table = $c->get('db')->table('resource');
     $logger = $c->get('logger');
-    return new \Fullstackersio\Controllers\ResourceController($table, $logger);
+    return new Fullstackersio\Controller\ResourceController($table, $logger);
 };
