@@ -1,3 +1,14 @@
 # Resources Service
-Trying a second update.... The first PR is still open, but it looks like Jenkins was triggered.... Checking to see if this 2nd update triggers Jenkins as well.
-Testing if this change will trigger my Jenkins job.....
+
+## DB Migration Commands
+composer db-migrate\
+composer db-rollback
+
+## Start up local server
+composer start
+
+## Run tests
+composer test
+
+## External Docs
+[Phinx](http://docs.phinx.org/en/latest/index.html)
